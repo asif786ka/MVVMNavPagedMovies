@@ -1,6 +1,7 @@
 package com.kotproj.mvvmnavigationpagedmovies.moviedetails.hilt
 
 import com.kotproj.mvvmnavigationpagedmovies.moviedetails.remote.MovieInterface
+import com.kotproj.mvvmnavigationpagedmovies.moviedetails.ui.details.MovieDetailsRepository
 import com.kotproj.mvvmnavigationpagedmovies.moviedetails.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,11 @@ object HiltModules {
         return Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(
             GsonConverterFactory.create()
         ).build().create(MovieInterface::class.java)
+    }
+
+    @Provides
+    fun provideRepository(movieInterface: MovieInterface): MovieDetailsRepository {
+        return MovieDetailsRepository(movieInterface)
     }
 
 
